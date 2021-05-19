@@ -14,7 +14,7 @@ const top100Films = [
 
 const Search = props => {
     console.log('props in search:', props);
-    
+    const {value,handleChange} = props
     return (
         <Autocomplete
             freeSolo
@@ -28,6 +28,8 @@ const Search = props => {
                         label="Search input"
                         margin="normal"
                         variant="outlined"
+                        onChange={e=>handleChange(e)}
+                        value={value}
                         InputProps={{ ...params.InputProps, type: 'search' }}
                     />
                 </div>

@@ -18,8 +18,8 @@
 		"sourceType": "module"
 	},
 	"rules": {
-		"array-bracket-newline":"error",
-		"array-element-newline":"error",
+		"array-bracket-newline":2,
+		"array-element-newline":2,
 		"eqeqeq":"error",
 		"indent": 2,
 		"no-fallthrough":"error",
