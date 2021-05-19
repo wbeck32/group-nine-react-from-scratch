@@ -7,12 +7,13 @@ const Main = () => {
     const [
         query,
         setQuery
-    ] = useState('')
+    ] = useState()
     const value=0;
 
     const handleChange= e => {
         if(e !== undefined){
-
+            console.log('process.env:', process.env);
+            console.info('e:', e, typeof e);
             setQuery(e.target.value)
             encodeURI(query)
             console.log('query:', query);
