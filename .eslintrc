@@ -1,0 +1,31 @@
+{
+	"env": {
+		"browser": true,
+		"es2017": true,
+		"es2020": true,
+		"es2021": true,
+		"es6": true,
+		"jest": true,
+		"node": true,
+		"serviceworker": false
+	},
+	"extends": "eslint:recommended",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": 12,
+		"sourceType": "module"
+	},
+	"rules": {
+		"array-bracket-newline":"error",
+		"array-element-newline":"error",
+		"eqeqeq":"error",
+		"indent": ["error","tab"],
+		"no-fallthrough":"error",
+		"no-useless-return":"error",
+		"no-unused-vars": "off",
+		"require-await":"error",
+		"newline-per-chained-call":"off",
+	}
+}
