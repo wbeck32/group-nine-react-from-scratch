@@ -1,17 +1,18 @@
 import React from 'react';
-import Header from './Header'
+import {Container} from '@material-ui/core'
+import Header from './Search'
 import Main from './Main'
 import Footer from './Footer'
 
 const PageContainer = () => {
-	const pageContainerStyle = {
-		height: '.25vh',
-		border: '2px solid pink'
-	}
-	return (
-		<div style={pageContainerStyle}><Header /><Main /><Footer /></div>
-	)
 
+    return (
+        <Container
+            maxWidth="sm"   
+        >
+            <Main />
+        </Container>
+    )
 }
-
+	
 export default PageContainer

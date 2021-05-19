@@ -1,26 +1,23 @@
 import React from 'react';
-import { Card,Paper } from '@material-ui/core';
+import {Container} from '@material-ui/core';
+import Search from './Search'
+import MovieList from './MovieList'
 
 const Main = () => {
-	const mainStyle = {
-		height: '.25vh',
-		border: '2px solid orange'
-	}
+    let value = 0
+    const handleChange= e => {
+        console.log('e:', e.target.value);
 
-	return (
-		<Paper
-			container
-			direction="column"
-			justify="space-evenly"
-			alignItems="stretch"
-			children={
-				<>
-					<section>section 1</section>
-					<section>section 2</section>
-				</>
-			}
-		/>
-	)
+
+    }
+    return (
+        <Container>
+            <>
+                <Search value={value} onChange={e=>handleChange(e)}/>
+                <MovieList value={value} onChange={e=>handleChange(e)}/>
+            </>
+        </Container>
+    )
 }
-
+	
 export default Main
