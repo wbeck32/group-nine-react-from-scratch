@@ -4,18 +4,20 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 const MovieList = props => {
     const {options, query} = props
-    
+    console.log('movieList in ML before filter:', options.length);
+
     const movieList = options.filter(o=>{
         const lCTitle = o.title.toLowerCase()
         const lCQuery = query.toLowerCase()
         return lCTitle.indexOf(lCQuery)>-1
     })
 		
-    console.log('movieList:', movieList);
+    console.log('movieList in ML after filter:', movieList.length);
+    console.log("====")
     return (
         <div>
             <InfiniteScroll
-                dataLength={options ? options.length : 0}
+                dataLength={movieList ? movieList.length : 0}
                 loader={<h4>Loading...</h4>}
                 endMessage={
                     <p style={{ textAlign: 'center' }}>

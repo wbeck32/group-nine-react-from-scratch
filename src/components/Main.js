@@ -20,6 +20,7 @@ const Main = () => {
     ] = useState([])
 
     const handleChange = e => {
+        console.log('e:', e.target.value);
         let q = encodeURI(e.target.value)
         setQuery(e.target.value)
         return fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${pageNumber}&include_adult=false&query=${q}`)
