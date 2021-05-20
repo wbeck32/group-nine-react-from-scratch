@@ -4,7 +4,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 const MovieList = props => {
     const {options} = props
-    console.log('movie List in ML:', Object.entries(options), typeof options);
+    console.log('options:', options ? options.length : 0);
 	
     return (
         <div>
@@ -17,7 +17,7 @@ const MovieList = props => {
                     </p>
                 }
             >
-                {options.length > 0 &&
+                {options && options.length > 0 &&
 									options.map(i=>{
 			    				return <Card key={i.id * Math.random()}>{i.title}</Card>
 									})
