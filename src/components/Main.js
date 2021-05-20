@@ -3,8 +3,7 @@ import {Container} from '@material-ui/core';
 import Search from './Search'
 import MovieList from './MovieList'
 
-const Main = props => {
-    console.log('props in main.js:', props);
+const Main = () => {
     const [
         pageNumber,
         setPageNumber
@@ -29,13 +28,9 @@ const Main = props => {
             .then(resp => {
                 setPageNumber(pageNumber+1)
                 const results = resp.results
-                setMovieList(...movieList,results)
-                console.log('movieList in main:', movieList.length);
+                setMovieList(movieList.concat(results))
                 query = decodeURI(query)
-                movieList.filter(movie =>{
-                    return (movie.title.toLowerCase().indexOf(query.toLowerCase())>-1)	
-                })
-                return movieList
+                console.log('movieList after concat:', movieList.length);
             })
             .catch(error => {
                 console.error(error);
