@@ -1,19 +1,10 @@
 {
 	"env": {
 		"browser": true,
-		"es2017": true,
-		"es2020": true,
 		"es2021": true,
-		"es6": true,
-		"jest": true,
-		"node": true,
-		"serviceworker": false
 	},
 	"extends": "eslint:recommended",
 	"parserOptions": {
-		"ecmaFeatures": {
-			"jsx": true
-		},
 		"ecmaVersion": 12,
 		"sourceType": "module"
 	},

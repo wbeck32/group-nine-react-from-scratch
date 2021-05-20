@@ -5,9 +5,14 @@ import MovieList from './MovieList'
 
 const Main = () => {
     const [
-        pageNumber,
-        setPageNumber
+      	currentPageNumber,
+      setCurrentPageNumber
     ] = useState(1)
+
+		const [
+			totalPages,
+			setTotalPages
+	] = useState(1)
 
     const [
         query,
@@ -23,7 +28,7 @@ const Main = () => {
         console.log('e:', e.target.value);
         let q = encodeURI(e.target.value)
         setQuery(e.target.value)
-        return fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${pageNumber}&include_adult=false&query=${q}`)
+        return fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${currentPageNumber}&include_adult=false&query=${q}`)
             .then(response => {
                 if (response.status === 200) {
                     return response.json();
@@ -32,7 +37,8 @@ const Main = () => {
                 }
             })
             .then(resp => {
-                setPageNumber(pageNumber+1)
+							console.log('resp:', resp.results.length);
+                setCurrentPageNumber(currentPageNumber+1)
                 const results = resp.results
                 setMovieList(movieList.concat(results))
             })
