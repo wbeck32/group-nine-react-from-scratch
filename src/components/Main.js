@@ -39,39 +39,11 @@ const Main = () => {
 		setMovieList
 	] = useState([])
 	
-	const handlePagination = (e) =>{
-		// console.log('e in pagination:', e.target.value, current);
-		for(let i = 1;i<=totalPages;i++) {
-			setCurrentPageNumber(i)
-			console.log('CurrentPageNumber:', currentPageNumber);
-			// console.log('i:', i);
-			return handleChange(e,currentPageNumber)
-		}
-	}
-
-	// useEffect(()=>{
-	// 	console.log('effect: ', currentPageNumber)
-	// 	return setCurrentPageNumber(currentPageNumber+1)
-	
-	// },[currentPageNumber])
-	const handleConcatenate = list => {
-
-		for (const [
-			key,
-			value
-		] of Object.entries(list)) {
-			
-			console.log(`${key}: ${value.title}`);
-		}
-	}
-
-
-
-	const handleChange = (e) => {
+	const handleChange = e => {
 		console.log('e in handle change:', e.target.value,currentPageNumber);
 		const q = e.target.value
 		setQuery(e.target.value)
-		return fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&include_adult=false&page=${currentPageNumber}&query=${encodeURI(q)}`)
+		return fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&include_adult=false&page=1&query=${encodeURI(q)}`)
 			.then(response => {
 				if (response.status === 200) {
 					return response.json();
@@ -80,21 +52,10 @@ const Main = () => {
 				}
 			})
 			.then(resp => {
-				console.log('resp:', resp);
 				setTotalPages(resp.total_pages)
 				setCurrentPageNumber(currentPageNumber+1)
 				const results = resp.results
-				console.log('results:', results);
-				// setMovieList(movieList))
-				console.log('ml: ',movieList)
-				// console.log('results before concat:', Object.values(results), typeof Object.values(results));
-				// console.log('movieList before concat:', Object.values(movieList));
-				// console.log({...movieList,...results})
-				setMovieList([ 
-					movieList,
-					...results
-				])
-				console.log('movieList after concat:', movieList, typeof movieList);
+				setMovieList(results)
 			})
 			.catch(error => {
 				console.error(error);
@@ -117,7 +78,7 @@ const Main = () => {
 						)}
 					/>
 				</div>
-				<MovieList options={movieList} currentPageNumber={currentPageNumber} totalPages={totalPages} handleChange={handleChange} handlePagination={(e,currentPageNumber)=>handlePagination(e,currentPageNumber)} query={query}/>
+				<MovieList options={movieList} query={query}/>
 			</>
 		</Container>
 	)

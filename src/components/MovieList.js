@@ -1,18 +1,18 @@
 import React, {useState} from 'react'
-import {Card} from '@material-ui/core'
+import {Card,CardMedia,CardContent} from '@material-ui/core'
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 const MovieList = props => {
 	console.log(3,"ML")
 	// console.log('props in ML:', props);
-	const {options} = props
-	console.log('options in ML:', options,typeof options);
-	for (const [
-		key,
-		value
-	] of Object.entries(options)) {
-		console.log(`${key}: ${value.title}`);
-	}
+	const {options, query} = props
+	console.log('options in ML:', options);
+	// for (const [
+	// 	key,
+	// 	value
+	// ] of Object.entries(options)) {
+	// 	console.log(`${key}: ${value.title}`);
+	// }
 
 	const top100Films = [
 		{ title: 'The Shawshank Redemption', year: 1994 },
@@ -27,13 +27,26 @@ const MovieList = props => {
 		{ title: 'Fight Club', year: 1999 }
 	]
 
-	// if(options.length > 0) {
-	// 	movieList = options.filter(o=>{
-	// 		const lCTitle = o.title.toLowerCase()
-	// 		const lCQuery = query.toLowerCase()
-	// 		return lCTitle.indexOf(lCQuery)>-1 === true
-	// 	})
-	// }
+	const [
+		movieList,
+		setMovieList
+	] = useState(options)
+	let tmp=[]
+
+	const filteredMovieList = options.filter(o=>{
+		console.log('o:', o);
+		if(movieList.length > 0) {
+			const lCTitle = o.title.toLowerCase()
+			console.log('lCTitle:', lCTitle);
+			const lCQuery = query.toLowerCase()
+			console.log('lCQuery:', lCQuery);
+			lCTitle.indexOf(lCQuery)>-1 === true ? tmp.push[0] : null
+			return tmp
+		}
+		return tmp
+	})
+	console.log('tmp:', tmp);
+	console.log('filteredMovieList:', filteredMovieList);
 
 	const handleRefresh = e =>{
 		console.log('e in refresh:', e);
@@ -54,9 +67,9 @@ const MovieList = props => {
 					</p>
 				}
 			>
-				{top100Films !==[]  &&
-				top100Films.map(i=>{
-					return <Card key={i.year * Math.random()}>{i.title}</Card>
+				{filteredMovieList.length > 0  &&
+				filteredMovieList.map(i=>{
+					return <Card key={i.id * Math.random()}>{i.original_title}</Card>
 				})
 				}
 			</InfiniteScroll>
