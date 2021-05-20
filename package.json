@@ -23,6 +23,8 @@
 		"react": "^17.0.1",
 		"react-dom": "^17.0.1",
 		"react-hot-loader": "^4.13.0",
+		"react-infinite-scroll": "^0.1.5",
+		"react-infinite-scroll-component": "^6.1.0",
 		"storybook": "^6.1.11",
 		"style-loader": "^0.23.0"
 	},
