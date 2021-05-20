@@ -3,9 +3,17 @@ import {Card} from '@material-ui/core'
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 const MovieList = props => {
-    const {options} = props
+    const {options, query} = props
+    console.log('query:', query);
     console.log('options:', options ? options.length : 0);
-	
+    
+    const movieList = options.filter(o=>{
+        const lCTitle = o.title.toLowerCase()
+        const lCQuery = query.toLowerCase()
+        return lCTitle.indexOf(lCQuery)>-1
+    })
+		
+    console.log('movieList:', movieList);
     return (
         <div>
             <InfiniteScroll
@@ -17,8 +25,8 @@ const MovieList = props => {
                     </p>
                 }
             >
-                {options && options.length > 0 &&
-									options.map(i=>{
+                {movieList && movieList.length > 0 &&
+									movieList.map(i=>{
 			    				return <Card key={i.id * Math.random()}>{i.title}</Card>
 									})
                 }

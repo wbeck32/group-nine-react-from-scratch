@@ -3,6 +3,8 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const Search = props => {
+    console.log('props in search:', props);
+    const {options} = props
     const top100Films = [
         { title: 'The Shawshank Redemption', year: 1994 },
         { title: 'The Godfather', year: 1972 },
@@ -17,7 +19,7 @@ const Search = props => {
                 id="free-solo-demo"
                 freeSolo
                 open={false}
-                options={top100Films.map((option) => option.title)}
+                options={options.map((option) => option.title)}
                 onInputChange={e=>props.handleChange(e)}
                 renderInput={(params) => (
                     <TextField {...params} label="freeSolo" margin="normal" variant="outlined" />

@@ -5,9 +5,7 @@ import Main from './Main'
 const PageContainer = () => {
     
     return (
-        <Container
-            maxWidth="sm"   
-        >
+        <Container maxWidth="sm">
             <Main />
         </Container>
     )
