@@ -34,7 +34,6 @@ const Main = () => {
                 setPageNumber(pageNumber+1)
                 const results = resp.results
                 setMovieList(movieList.concat(results))
-                console.log('movieList after concat:', movieList.length);
             })
             .catch(error => {
                 console.error(error);
@@ -45,7 +44,7 @@ const Main = () => {
         <Container>
             <>
                 <Search options={movieList} handleChange={e=>handleChange(e)}/>
-                <MovieList query={query} options={movieList} handleChange={e=>handleChange(e)}/>
+                <MovieList query={query} options={movieList}/>
             </>
         </Container>
     )
