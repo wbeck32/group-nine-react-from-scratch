@@ -7,28 +7,6 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const Main = () => {
 	console.log(1,'Main')
-	const top100Films = [
-		{ title: 'The Shawshank Redemption', year: 1994 },
-		{ title: 'The Godfather', year: 1972 },
-		{ title: 'The Godfather: Part II', year: 1974 },
-		{ title: 'The Dark Knight', year: 2008 },
-		{ title: '12 Angry Men', year: 1957 },
-		{ title: "Schindler's List", year: 1993 },
-		{ title: 'Pulp Fiction', year: 1994 },
-		{ title: 'The Lord of the Rings: The Return of the King', year: 2003 },
-		{ title: 'The Good, the Bad and the Ugly', year: 1966 },
-		{ title: 'Fight Club', year: 1999 }
-	]
-	const [
-		currentPageNumber,
-		setCurrentPageNumber
-	] = useState(1)
-	
-	const [
-		totalPages,
-		setTotalPages
-	] = useState(1)
-	
 	const [
 		query,
 		setQuery
@@ -40,10 +18,9 @@ const Main = () => {
 	] = useState([])
 	
 	const handleChange = e => {
-		console.log('e in handle change:', e.target.value,currentPageNumber);
 		const q = e.target.value
 		setQuery(e.target.value)
-		return fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&include_adult=false&page=1&query=${encodeURI(q)}`)
+		return fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&include_adult=false&page=1&query=${encodeURI(q)}&append_to_response=images`)
 			.then(response => {
 				if (response.status === 200) {
 					return response.json();
@@ -52,8 +29,6 @@ const Main = () => {
 				}
 			})
 			.then(resp => {
-				setTotalPages(resp.total_pages)
-				setCurrentPageNumber(currentPageNumber+1)
 				const results = resp.results
 				setMovieList(results)
 			})
