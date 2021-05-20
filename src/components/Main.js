@@ -28,18 +28,16 @@ const Main = props => {
             })
             .then(resp => {
                 console.log('resp:', resp);
-                setMovieList([
-                    ...movieList,
-                    resp.results
-                ])
-                console.log('movieList:', movieList.length);
+                const results = resp.results
+                setMovieList(Object.assign(movieList,results))
+                console.log('movieList in main:', movieList,typeof movieList);
                 query = decodeURI(query)
-                // const filtered = movieList.results.filter(movie =>{
-                //     console.log('movie:', movie);
-                //     const filter = (movie.indexOf(query)>-1)	
-                //     console.log('movie.indexOf(query)>-1:', movie.title,movie.indexOf(query)>-1);
-                // })
-                // console.log('filtered:', filtered);
+                return movieList.filter(movie =>{
+                    console.log('movie:', movie.title);
+                    const filter = (movie.title.toLowerCase().indexOf(query.toLowerCase())>-1)	
+                    console.log('filter:', filter);
+                    console.log('===')
+                })
             })
             .catch(error => {
                 console.error(error);
