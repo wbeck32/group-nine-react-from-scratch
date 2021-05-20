@@ -5,7 +5,7 @@ import MovieList from './MovieList'
 
 const Main = () => {
     const [
-      	currentPageNumber,
+      currentPageNumber,
       setCurrentPageNumber
     ] = useState(1)
 
@@ -24,11 +24,17 @@ const Main = () => {
         setMovieList
     ] = useState([])
 
+// useEffect(()=>{
+// 	console.log('effect')
+// return setCurrentPageNumber(currentPageNumber+1)
+
+// },[currentPageNumber])
+
+
     const handleChange = e => {
-        console.log('e:', e.target.value);
-        let q = encodeURI(e.target.value)
-        setQuery(e.target.value)
-        return fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${currentPageNumber}&include_adult=false&query=${q}`)
+        console.log('e in handle change:', e.target.value);
+        setQuery(encodeURI(e.target.value))
+        return fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${currentPageNumber}&include_adult=false&query=${query}`)
             .then(response => {
                 if (response.status === 200) {
                     return response.json();
@@ -37,21 +43,21 @@ const Main = () => {
                 }
             })
             .then(resp => {
-							console.log('resp:', resp.results.length);
-                setCurrentPageNumber(currentPageNumber+1)
-                const results = resp.results
-                setMovieList(movieList.concat(results))
+							setTotalPages(resp.total_pages)
+							setCurrentPageNumber(currentPageNumber)
+							const results = resp.results
+              setMovieList(movieList.concat(results))
             })
             .catch(error => {
                 console.error(error);
             })
-    }
+	}
     
     return (
         <Container>
             <>
                 <Search options={movieList} handleChange={e=>handleChange(e)}/>
-                <MovieList query={query} options={movieList}/>
+                <MovieList options={movieList} query={decodeURI(query)}/>
             </>
         </Container>
     )
