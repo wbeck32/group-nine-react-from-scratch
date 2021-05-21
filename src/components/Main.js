@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {Container} from '@material-ui/core';
-import Search from './Search'
 import MovieList from './MovieList'
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import { useTheme, ThemeProvider } from '@material-ui/core/styles';
 
 const Main = () => {
 	console.log(1,'Main')
+	const theme = useTheme()
+
 	const [
 		query,
 		setQuery
@@ -38,24 +40,26 @@ const Main = () => {
 	}
 	
 	return (
-		<Container>
-			<>
-				<div style={{ width: 300 }}>
-					<Autocomplete
-						autoComplete
-						id="free-solo-demo"
-						freeSolo
-						open={false}
-						options={movieList.map(o=>o.title)}
-						renderInput={(params) => (
-							<TextField {...params}
-								label="freeSolo" onChange={(e)=>handleChange(e)} margin="normal" variant="outlined" />
-						)}
-					/>
-				</div>
-				<MovieList options={movieList} query={query}/>
-			</>
-		</Container>
+		<ThemeProvider theme={theme}>
+			<Container>
+				<>
+					<div style={{ width: 300 }}>
+						<Autocomplete
+							autoComplete
+							id="free-solo-demo"
+							freeSolo
+							open={false}
+							options={movieList.map(o=>o.title)}
+							renderInput={(params) => (
+								<TextField {...params}
+									label="Enter a movie title" onChange={(e)=>handleChange(e)} margin="normal" variant="outlined" />
+							)}
+						/>
+					</div>
+					<MovieList options={movieList} query={query}/>
+				</>
+			</Container>
+		</ThemeProvider>
 	)
 }
 	

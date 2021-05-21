@@ -1,14 +1,14 @@
-import React,{useState} from 'react';
+import React from 'react';
 import {Container} from '@material-ui/core'
 import Main from './Main'
 
 const PageContainer = () => {
     
-    return (
-        <Container maxWidth="sm">
-            <Main />
-        </Container>
-    )
+	return (
+		<Container maxWidth="sm">
+			<Main />
+		</Container>
+	)
 }
 	
 export default PageContainer
