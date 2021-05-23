@@ -11,11 +11,42 @@ const MovieList = props => {
 			const lCTitle = o.title.toLowerCase()
 			const lCQuery = query.toLowerCase()
 			lCTitle.indexOf(lCQuery)>-1 === true ? tmp.push[0] : null
-			return tmp
+			tmp.forEach(t=>{
+				console.log('t:', t);
+				// return getFirstListedGenre(t.id)
+			})
+				.then(x=>{
+					console.log('x:', x);
+					return {...o, x}
+				})
 		}
-		return tmp
 	})
+	
+	console.log('filteredMovieList:', filteredMovieList);
+	
+	const getFirstListedGenre = filteredMovieList => {
+		filteredMovieList.map(o=>{
+			console.log('o:', o);
+			return fetch(`https://api.themoviedb.org/3/movie/${ o.id }?api_key=${process.env.REACT_APP_API_KEY }`)
+				.then(r=>{
+					console.log('r:', r);
+					return r.json()
+				})
+				.then(b=>{
+					const genreName = b.genres[0].name
+					o = {...o, genreName}
+					console.log('o:', o);
+					return o
+				})
+		})
+	}
+		
 
+	// return fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&include_adult=false&page=1&query=${encodeURI(q)}&append_to_response=movie`)
+
+
+
+	
 	const handleRefresh = e =>{
 		console.log('e in refresh:', e);
 	}
@@ -34,8 +65,7 @@ const MovieList = props => {
 				}
 			>
 				{filteredMovieList.length > 0  &&
-				filteredMovieList.map(i=>{
-					console.log('i:', i.genre_ids[0]);
+				filteredMovieList.map (i=>{
 					return (
 						<Card key={i.id * Math.random()}>
 							<CardMedia component="img" image={`https://image.tmdb.org/t/p/w342/${i.backdrop_path ? i.backdrop_path : i.poster_path}`}></CardMedia>

@@ -21,7 +21,7 @@ const Main = () => {
 	const handleChange = e => {
 		const q = e.target.value
 		setQuery(e.target.value)
-		return fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&include_adult=false&page=1&query=${encodeURI(q)}&append_to_response=images`)
+		return fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&include_adult=false&page=1&query=${encodeURI(q)}&append_to_response=movie`)
 			.then(response => {
 				if (response.status === 200) {
 					return response.json();
