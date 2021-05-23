@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const path = require('path');
 const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
@@ -13,11 +14,20 @@ module.exports = {
 				loader: 'babel-loader',
 			},
 			{
-				test: /\.css$/,
+				test: /\.s[ac]ss$/i,
 				use: [
-					'style-loader',
-					'css-loader'
-				]
+					"style-loader",
+					"css-loader",
+					{
+						loader:"sass-loader",
+						options:{	
+							implementation:require('sass'),
+							sassOptions:{
+								file:'src/style.scss'
+							}
+						}
+					}
+				],
 			}
 		]
 	},
@@ -25,7 +35,8 @@ module.exports = {
 		extensions: [
 			'*',
 			'.js',
-			'.jsx'
+			'.jsx',
+			'.scss'
 		]
 	},
 	output: {
