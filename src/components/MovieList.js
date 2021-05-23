@@ -35,14 +35,15 @@ const MovieList = props => {
 			>
 				{filteredMovieList.length > 0  &&
 				filteredMovieList.map(i=>{
+					console.log('i:', i.genre_ids[0]);
 					return (
-						<Card css={{color:'darkorchid'}}  key={i.id * Math.random()}>
+						<Card key={i.id * Math.random()}>
 							<CardMedia component="img" image={`https://image.tmdb.org/t/p/w342/${i.backdrop_path ? i.backdrop_path : i.poster_path}`}></CardMedia>
 							<CardContent children={
 								<>
-									<div>{i.original_title}</div>
+									<div className="title">{i.original_title}</div>
 									<div>{i.release_date}</div>
-									<div>{i.overview}</div>
+									<div className="overview">{i.overview}</div>
 									<div>{i.vote_average}</div>
 								</>
 							}/>
