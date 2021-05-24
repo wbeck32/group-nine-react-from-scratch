@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Card,CardMedia,CardContent} from '@material-ui/core'
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 const MovieList = props => {
-	const {options, query} = props
+	const {options, query, handleChange} = props
+	console.log('options, query:', options, query);
 
 	const filteredMovieList = options.filter(o=>{
 		let tmp=[]
@@ -11,35 +12,28 @@ const MovieList = props => {
 			const lCTitle = o.title.toLowerCase()
 			const lCQuery = query.toLowerCase()
 			lCTitle.indexOf(lCQuery)>-1 === true ? tmp.push[0] : null
-			tmp.forEach(t=>{
-				console.log('t:', t);
-				// return getFirstListedGenre(t.id)
-			})
-				.then(x=>{
-					console.log('x:', x);
-					return {...o, x}
-				})
+			return tmp
 		}
+		return tmp
 	})
 	
-	console.log('filteredMovieList:', filteredMovieList);
+	// useEffect(()=>{
+	// 	return filteredMovieList.map(f=>{
+	// 		return fetch(`https://api.themoviedb.org/3/movie/${f.id}?api_key=${process.env.REACT_APP_API_KEY }`)
+	// 			.then(r=>{
+	// 				return r.json()
+	// 			})
+	// 			.then(b=>{
+	// 				const genreName = b.genres[0].name
+	// 				console.log('genreName:', genreName);
+	// 				f =  {...f, genreName}
+	// 				console.log('f:', f);
+	// 			})
+	// 	})
+	// },[filteredMovieList])
 	
-	const getFirstListedGenre = filteredMovieList => {
-		filteredMovieList.map(o=>{
-			console.log('o:', o);
-			return fetch(`https://api.themoviedb.org/3/movie/${ o.id }?api_key=${process.env.REACT_APP_API_KEY }`)
-				.then(r=>{
-					console.log('r:', r);
-					return r.json()
-				})
-				.then(b=>{
-					const genreName = b.genres[0].name
-					o = {...o, genreName}
-					console.log('o:', o);
-					return o
-				})
-		})
-	}
+	
+	console.log('filteredMovieList:', filteredMovieList);
 		
 
 	// return fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&include_adult=false&page=1&query=${encodeURI(q)}&append_to_response=movie`)
@@ -47,8 +41,9 @@ const MovieList = props => {
 
 
 	
-	const handleRefresh = e =>{
-		console.log('e in refresh:', e);
+	const handleNext = query => {
+		console.log('e in next:', query);
+		return handleChange(query)
 	}
 
 	return (
@@ -56,8 +51,7 @@ const MovieList = props => {
 			<InfiniteScroll
 				dataLength={options.length > 0 ? 500 : 0}
 				hasMore={true}
-				pullDownToRefresh
-				refreshFunction={e=>handleRefresh(e)}
+				next={e=>handleNext(query)}
 				endMessage={
 					<p style={{ textAlign: 'center' }}>
 						<b>Yay! You have seen it all</b>
@@ -71,6 +65,7 @@ const MovieList = props => {
 							<CardMedia component="img" image={`https://image.tmdb.org/t/p/w342/${i.backdrop_path ? i.backdrop_path : i.poster_path}`}></CardMedia>
 							<CardContent children={
 								<>
+									<div>{i.genreName}</div>
 									<div className="title">{i.original_title}</div>
 									<div>{i.release_date}</div>
 									<div className="overview">{i.overview}</div>
