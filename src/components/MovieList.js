@@ -1,68 +1,42 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Card,CardMedia,CardContent} from '@material-ui/core'
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 const MovieList = props => {
-	const {options, query, filterMovieList} = props
+	const {options, query} = props
+	console.log('options in ML:', options);
 	console.log(3, "MovieList", options.length)
 
-	// useEffect(()=>{
-	// 	let tmp=[]
-	// 	return options.filter(o=>{
-	// 		if(options.length > 0) {
-	// 			const lCTitle = o.title.toLowerCase()
-	// 			const lCQuery = query.toLowerCase()
-	// 			lCTitle.indexOf(lCQuery)>-1 === true ? tmp.push[0] : null
-	// 			return tmp
-	// 		}
-	// 		console.log('tmp:', tmp);
-	// 		return tmp
-	// 	})
+	const [
+		movieList,
+		setMovieList
+	] = useState(options)
 	
-	// console.log('options.length', options.length,options[0].title)
-
-	// },[options])
+	useEffect(()=>{
+		return movieList.forEach(l=>{
+			const lCTitle = l.title.toLowerCase()
+			const lCQuery = query.toLowerCase()
+			const falseIndex = lCTitle.indexOf(lCQuery) <= -1 === true ? movieList.indexOf(l)  : null
+			movieList[falseIndex] = 0
+			setMovieList(movieList.filter(m=>m!==0))
+		})
+	},[options])
 	
-	// 	return filteredMovieList.map(f=>{
-	// 		return fetch(`https://api.themoviedb.org/3/movie/${f.id}?api_key=${process.env.REACT_APP_API_KEY }`)
-	// 			.then(r=>{
-	// 				return r.json()
-	// 			})
-	// 			.then(b=>{
-	// 				const genreName = b.genres[0].name
-	// 				console.log('genreName:', genreName);
-	// 				f =  {...f, genreName}
-	// 				console.log('f:', f);
-	// 			})
-	// 	})
-	
-	
-		
-
-	// return fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&include_adult=false&page=1&query=${encodeURI(q)}&append_to_response=movie`)
-
-
-
-	
-	const handleNext = query => {
-		console.log('e in next:', query);
-		return handleChange(query)
-	}
+	console.log('movieList:', movieList);
 
 	return (
 		<div>
 			<InfiniteScroll
-				dataLength={options.length > 0 ? 500 : 0}
+				dataLength={movieList.length}
 				hasMore={true}
-				next={e=>handleNext(query)}
 				endMessage={
 					<p style={{ textAlign: 'center' }}>
 						<b>Yay! You have seen it all</b>
 					</p>
 				}
 			>
-				{options.length > 0  &&
-				options.map (i=>{
+				{movieList.length > 0 &&
+				movieList.map (i=>{
 					return (
 						<Card key={i.id * Math.random()}>
 							<CardMedia component="img" image={`https://image.tmdb.org/t/p/w342/${i.backdrop_path ? i.backdrop_path : i.poster_path}`}></CardMedia>
