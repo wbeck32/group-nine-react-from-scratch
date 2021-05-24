@@ -1,21 +1,11 @@
-import React,{useState, useEffect} from 'react'
+import React from 'react'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import {TextField} from '@material-ui/core'
-import MovieList from './MovieList'
 
 const Search = props => {
-	const {movies, handleChange, query} = props
-	console.log(2, "Search", movies);
+	const {movies, handleChange} = props
 	
-	const [
-		options,
-		setOptions
-	] = useState(movies)
-	
-	const [
-		isLoading,
-		setIsLoading
-	] = useState(false)
+	const options = movies
 	
 	return (
 		<div style={{ width: 300 }}>
@@ -23,7 +13,6 @@ const Search = props => {
 				autoComplete
 				id="free-solo-demo"
 				freeSolo
-				loading={isLoading}
 				options={options.map(c =>{c.title})}
 				open={true}
 				onInputChange={e=>handleChange(e.target.value)}

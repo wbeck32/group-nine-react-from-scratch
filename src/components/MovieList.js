@@ -3,9 +3,7 @@ import {Card,CardMedia,CardContent} from '@material-ui/core'
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 const MovieList = props => {
-	const {options, query} = props
-	console.log('options in ML:', options);
-	console.log(3, "MovieList", options.length)
+	const {options, query, handleChange} = props
 
 	const [
 		movieList,
@@ -13,16 +11,22 @@ const MovieList = props => {
 	] = useState(options)
 	
 	useEffect(()=>{
-		return movieList.forEach(l=>{
+		movieList.forEach(l=>{
 			const lCTitle = l.title.toLowerCase()
 			const lCQuery = query.toLowerCase()
 			const falseIndex = lCTitle.indexOf(lCQuery) <= -1 === true ? movieList.indexOf(l)  : null
 			movieList[falseIndex] = 0
 			setMovieList(movieList.filter(m=>m!==0))
+			return movieList
 		})
+		if(movieList.length < 20) {
+			return handleChange(query)
+				.then(t=>{
+					setMovieList(t)
+				})
+		}
 	},[options])
 	
-	console.log('movieList:', movieList);
 
 	return (
 		<div>
