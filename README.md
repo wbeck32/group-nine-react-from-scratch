@@ -31,6 +31,7 @@ My goals for this project were these:
 * Tech
 	- I don't like ```create-react-app``` because too much of it is hidden. I have a template repo called [react-from-scratch](https://github.com/wbeck32/react-from-scratch) that I use for react projects because I can fiddle around under the hood with the webpack config and the babelrc and fun stuff like that :).
 	- I used [Material-UI](https://material-ui.com/) as the component library.
+	- Found a dotenv plugin for webpack.
 	- I started a Storybook instance but didn't finish it.
 
 * Future improvements with more time
