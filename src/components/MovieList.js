@@ -3,21 +3,26 @@ import {Card,CardMedia,CardContent} from '@material-ui/core'
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 const MovieList = props => {
-	const {options, query, handleChange} = props
-	console.log('options, query:', options, query);
+	const {options, query, filterMovieList} = props
+	console.log(3, "MovieList", options.length)
 
-	const filteredMovieList = options.filter(o=>{
-		let tmp=[]
-		if(options.length > 0) {
-			const lCTitle = o.title.toLowerCase()
-			const lCQuery = query.toLowerCase()
-			lCTitle.indexOf(lCQuery)>-1 === true ? tmp.push[0] : null
-			return tmp
-		}
-		return tmp
-	})
-	
 	// useEffect(()=>{
+	// 	let tmp=[]
+	// 	return options.filter(o=>{
+	// 		if(options.length > 0) {
+	// 			const lCTitle = o.title.toLowerCase()
+	// 			const lCQuery = query.toLowerCase()
+	// 			lCTitle.indexOf(lCQuery)>-1 === true ? tmp.push[0] : null
+	// 			return tmp
+	// 		}
+	// 		console.log('tmp:', tmp);
+	// 		return tmp
+	// 	})
+	
+	// console.log('options.length', options.length,options[0].title)
+
+	// },[options])
+	
 	// 	return filteredMovieList.map(f=>{
 	// 		return fetch(`https://api.themoviedb.org/3/movie/${f.id}?api_key=${process.env.REACT_APP_API_KEY }`)
 	// 			.then(r=>{
@@ -30,10 +35,8 @@ const MovieList = props => {
 	// 				console.log('f:', f);
 	// 			})
 	// 	})
-	// },[filteredMovieList])
 	
 	
-	console.log('filteredMovieList:', filteredMovieList);
 		
 
 	// return fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&include_adult=false&page=1&query=${encodeURI(q)}&append_to_response=movie`)
@@ -58,8 +61,8 @@ const MovieList = props => {
 					</p>
 				}
 			>
-				{filteredMovieList.length > 0  &&
-				filteredMovieList.map (i=>{
+				{options.length > 0  &&
+				options.map (i=>{
 					return (
 						<Card key={i.id * Math.random()}>
 							<CardMedia component="img" image={`https://image.tmdb.org/t/p/w342/${i.backdrop_path ? i.backdrop_path : i.poster_path}`}></CardMedia>
